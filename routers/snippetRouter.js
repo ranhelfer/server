@@ -5,8 +5,18 @@ router.get("/test", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    const body = req.body;
-    console.log(body); // --> undefined if we wont't use: app.use(express.json());
+    const bodyPrint = req.body;
+
+    console.log(bodyPrint); // --> undefined if we wont't use: app.use(express.json());
+    
+    const {title, description, code} = req.body
+
+    
+    console.log("title is --> " + title);
+    console.log("description is --> " + description);
+    console.log("code is --> " + code);
+
+
     res.send("Router post hit")
 });
 
