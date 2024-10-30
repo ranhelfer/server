@@ -17,13 +17,12 @@ router.post("/", (req, res) => {
     console.log("description is --> " + description);
     console.log("code is --> " + code);
 
-
     const newSnippet = new Snippet({
         title, description, code
     });
 
     newSnippet.save();
-    
+
     res.send("Router post hit")
 });
 

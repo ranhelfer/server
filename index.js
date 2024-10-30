@@ -1,7 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
-
-// setup express server 
+const mongoose = require("mongoose"); //  rhelfer i8zLCVTjorWxk2zp
 
 const app = express();
 
@@ -26,3 +24,23 @@ app.listen(5001, () => console.log("Server started on port 5001") );
 // set router
 
 app.use("/snippet", require("./routers/snippetRouter"));
+
+
+// Set mongoose remove data base 
+
+const uri = "mongodb+srv://rhelfer:SiiwOCGnbg1fQmJ5@snippet-cluster.r9zxe.mongodb.net/?retryWrites=true&w=majority&appName=snippet-cluster"
+
+const uri_user =   "mongodb+srv://new_user_test:3ADDM2pnfeEHHa1Y@snippet-cluster.r9zxe.mongodb.net/?retryWrites=true&w=majority&appName=snippet-cluster"
+
+mongoose.connect(uri);
+
+
+////const conn = mongoose.createConnection(uri);
+
+//conn.on('connected', () => console.log('mongoose connected'));
+//conn.on('open', () => console.log('mongoose open'));
+//conn.on('disconnected', () => console.log('mongoose disconnected'));
+//conn.on('reconnected', () => console.log('mongoose reconnected'));
+//conn.on('disconnecting', () => console.log('mongoose disconnecting'));
+//conn.on('close', () => console.log('mongoose close'));
+
