@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose"); //  rhelfer i8zLCVTjorWxk2zp
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 
@@ -28,8 +31,8 @@ app.use("/snippet", require("./routers/snippetRouter"));
 
 // Set mongoose remove data base 
 
-const uri = "mongodb+srv://rhelfer:SiiwOCGnbg1fQmJ5@snippet-cluster.r9zxe.mongodb.net/?retryWrites=true&w=majority&appName=snippet-cluster"
-
+// Node has env environment
+const uri = process.env.CONNECT_URI;
 const uri_user =   "mongodb+srv://new_user_test:3ADDM2pnfeEHHa1Y@snippet-cluster.r9zxe.mongodb.net/?retryWrites=true&w=majority&appName=snippet-cluster"
 
 mongoose.connect(uri);
