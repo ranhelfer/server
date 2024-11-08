@@ -5,13 +5,20 @@ router.get("/test", (req, res) => {
     res.send("Router test")
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const bodyPrint = req.body;
 
     console.log(bodyPrint); // --> undefined if we wont't use: app.use(express.json());
     
     const {title, description, code} = req.body
 
+    // validation
+
+    if(!description && !code) {
+        return res.status(400).json({
+             errorMessage: "You need to enter description or some code"
+        })
+    }
     
     console.log("title is --> " + title);
     console.log("description is --> " + description);
@@ -21,9 +28,18 @@ router.post("/", (req, res) => {
         title, description, code
     });
 
-    newSnippet.save();
+    // This takes time
+    try {
+        const savedSnippet = await newSnippet.save();
 
-    res.send("Router post hit")
+        res.send(savedSnippet)
+    } catch (err) {
+        console.log({err})
+        return res.status(500).json({
+            // error: err.message || "An error occurred" // You do not want to return the actual error
+            error: "An error occurred"
+        })
+    }
 });
 
 
