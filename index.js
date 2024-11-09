@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose"); //  rhelfer i8zLCVTjorWxk2zp
-const dotenv = require("dotenv");
+const dotenv = require("dotenv"); // using .env file to secure mongoDB access string
 
 dotenv.config();
 
