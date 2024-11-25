@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose"); //  rhelfer i8zLCVTjorWxk2zp
 const dotenv = require("dotenv"); // using .env file to secure mongoDB access string
+const cors = require("cors");
 
 dotenv.config();
 
@@ -8,6 +9,9 @@ const app = express();
 
 // For any request run this function 
 app.use(express.json());
+app.use(cors( {
+    origin: ["http://localhost:3000"],
+})); // A middle ware that is going to run this for any request
 
 // sudo npm install -g --force nodemon
 // nodemon index
