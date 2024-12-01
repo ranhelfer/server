@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/userModel.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 
 router.post("/",async (req, res) => {
@@ -54,10 +55,19 @@ router.post("/",async (req, res) => {
        // Mongo db user
        const savedUser = await newUser.save();
 
-
-       res.send(savedUser);
-
+       // npm i jsonwebtoken
        // create jwt token
+
+       const jwtData = {
+            id: savedUser._id
+       }
+
+       const token = jwt.sign(jwtData, process.env.CONNECT_URI);
+
+       // 
+
+       res.cookie("token", token, {httpOnly: true}).send();
+
 
     } catch (err) {
         console.log({err})
