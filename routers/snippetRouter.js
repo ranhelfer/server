@@ -8,9 +8,8 @@ router.get("/", auth, async (req, res) => {
         console.log("req.user  " + (req.user));
 
         const token = req.cookies.token;
-        console.log(token);
 
-        const snippets = await Snippet.find();
+        const snippets = await Snippet.find( { user : req.user} );
         res.json(snippets)
     } catch (err) {
         console.log({err})
@@ -20,10 +19,10 @@ router.get("/", auth, async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
     const bodyPrint = req.body;
 
-    console.log(bodyPrint); // --> undefined if we wont't use: app.use(express.json());
+    //console.log(bodyPrint); // --> undefined if we wont't use: app.use(express.json());
     
     const {title, description, code} = req.body
 
@@ -40,8 +39,10 @@ router.post("/", async (req, res) => {
     console.log("code is --> " + code);
 
     const newSnippet = new Snippet({
-        title, description, code
+        title, description, code, user: req.user,
     });
+
+    console.log("newSnippet" + newSnippet);
 
     // This takes time
     try {
@@ -58,7 +59,7 @@ router.post("/", async (req, res) => {
 });
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     try {
         const snippetId = req.params.id;
 
@@ -78,6 +79,12 @@ router.delete("/:id", async (req, res) => {
             });
         }
 
+        if(existingSnippet.user.toString() != req.user) {
+            return res.status(404).json({
+                errorMessage: "Unauthorized"
+           });
+        }
+
         await existingSnippet.deleteOne();
         //await existingSnippet.delete();
 
@@ -92,7 +99,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     try {
         const snippetId = req.params.id;
         const {title, description, code} = req.body;
@@ -119,6 +126,12 @@ router.put("/:id", async (req, res) => {
             return res.status(400).json({
                  errorMessage: "No existing record for such id"
             });
+        }
+
+        if(existingSnippet.user.toString() != req.user) {
+            return res.status(404).json({
+                errorMessage: "Unauthorized"
+           });
         }
 
         existingSnippet.title = title;
