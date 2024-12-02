@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose"); //  rhelfer i8zLCVTjorWxk2zp
 const dotenv = require("dotenv"); // using .env file to secure mongoDB access string
 const cors = require("cors");
+const cParser = require("cookie-parser");
+
+
 
 dotenv.config();
 
@@ -9,6 +12,9 @@ const app = express();
 
 // For any request run this function 
 app.use(express.json());
+
+app.use(cParser());
+
 app.use(cors( {
     origin: ["http://localhost:3000"],
 })); // A middle ware that is going to run this for any request

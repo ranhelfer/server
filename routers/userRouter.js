@@ -31,7 +31,7 @@ router.post("/",async (req, res) => {
        const existingUser = await User.findOne( { email } );
     
        if (existingUser) {
-            console.log(existingUser);
+            console.log("user exist");
             return res.status(400).json({
                 errorMessage: "user exists"
            });
@@ -62,7 +62,10 @@ router.post("/",async (req, res) => {
             id: savedUser._id
        }
 
-       const token = jwt.sign(jwtData, process.env.CONNECT_URI);
+       const token = jwt.sign(jwtData, process.env.JWT_SECRET);
+
+       console.log("Create token:")
+       console.log(token)
 
        // 
 
