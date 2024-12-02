@@ -81,4 +81,54 @@ router.post("/",async (req, res) => {
     }
 })
 
+
+router.post("/login", async (req, res) => {
+    try {
+        const {email, password} = req.body
+
+        // validation
+
+        if (!email || !password) {
+            return res.status(400).json({
+                errorMessage: "Missing required fields"
+           });
+        }
+
+       const existingUser = await User.findOne( { email } );
+    
+       if (!existingUser) {
+            return res.status(401).json({
+                errorMessage: "wrong email or password"
+           });
+       }
+
+       const correctPassword = await bcrypt.compare(password, existingUser.passwordHash);
+
+       if (!correctPassword) {
+            return res.status(401).json({
+                errorMessage: "wrong email or password"
+            });
+        }
+
+       const jwtData = {
+            id: existingUser._id
+       }
+
+       const token = jwt.sign(jwtData, process.env.JWT_SECRET);
+
+       console.log("Create token:")
+       console.log(token)
+ 
+       res.cookie("token", token, {httpOnly: true}).send();
+
+    } catch (err) {
+        console.log({err})
+        return res.status(500).json({
+            // error: err.message || "An error occurred" // You do not want to return the actual error
+            error: "An error occurredcsdd"
+        });
+    }
+});
+
+
 module.exports = router;
