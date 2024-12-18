@@ -87,7 +87,7 @@ router.post("/login", async (req, res) => {
         const {email, password} = req.body
 
         // validation
-
+        console.log("login with " + email +  "pass: " + password)
         if (!email || !password) {
             return res.status(400).json({
                 errorMessage: "Missing required fields"
@@ -125,10 +125,29 @@ router.post("/login", async (req, res) => {
         console.log({err})
         return res.status(500).json({
             // error: err.message || "An error occurred" // You do not want to return the actual error
-            error: "An error occurredcsdd"
+            error: "An error occurred"
         });
     }
 });
 
+
+router.get("/loggedIn", (req, res) => {
+
+    try {
+
+        const token = req.cookies.token;
+
+        if (!token) {
+            return res.json(null);
+        }
+
+        const validatedUser = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("user logged " + validatedUser.id)
+        return res.json(validatedUser.id);
+    } catch (err) {
+        console.log(err)
+        return res.json(null);
+    }
+});
 
 module.exports = router;
