@@ -150,4 +150,14 @@ router.get("/loggedIn", (req, res) => {
     }
 });
 
+router.get("/logout", (req, res) => {
+    try {
+        console.log("loging out")
+        res.clearCookie("token").send();
+    } catch (err) {
+        console.log(err)
+        return res.json(null);
+    }
+});
+
 module.exports = router;
