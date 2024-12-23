@@ -30,7 +30,7 @@ app.use(cors( {
 
 const PORT = process.env.PORT || 5001; //  Heroku port
 
-app.listen(PORT, () => console.log("Server started on port ${PORT}}") );
+app.listen(PORT, () => console.log(`Server started on port ${PORT}}`) );
 
 // app.get("/test", (req, res) => {
 //     console.log("The end point was hit")
