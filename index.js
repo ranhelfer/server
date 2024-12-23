@@ -26,7 +26,11 @@ app.use(cors( {
 
 // lsof -i :5000 --> Will list the pid of which jobs are running on this port
 
-app.listen(5001, () => console.log("Server started on port 5001") );
+// When publishing to Heroku
+
+const PORT = process.env.PORT || 5001; //  Heroku port
+
+app.listen(PORT, () => console.log("Server started on port ${PORT}}") );
 
 // app.get("/test", (req, res) => {
 //     console.log("The end point was hit")
