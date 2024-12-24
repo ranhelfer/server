@@ -71,8 +71,8 @@ router.post("/",async (req, res) => {
        const isEnvProduction = process.env.NODE_ENV === "production" 
 
        res.cookie("token", token, { httpOnly: true, 
-                                    sameSite: isEnvProduction ? "None" : "lax", 
-                                    secure: isEnvProduction }).send();
+                                    sameSite: isEnvProduction ? "none" : "lax", 
+                                    secure: true }).send();
 
 
     } catch (err) {
@@ -126,7 +126,7 @@ router.post("/login", async (req, res) => {
 
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: isEnvProduction ? "none" : "lax" , 
-                                    secure: isEnvProduction }
+                                    secure: true }
                   ).send();
 
     } catch (err) {
