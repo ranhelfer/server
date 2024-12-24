@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cParser());
 
 app.use(cors( {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://snippet-ran.netlify.app/"],
     credentials: true,
 })); // A middle ware that is going to run this for any request
 
