@@ -71,9 +71,10 @@ router.post("/",async (req, res) => {
        const isEnvProduction = process.env.NODE_ENV === "production" 
 
        res.cookie("token", token, { httpOnly: true, 
-                                    sameSite: "none", 
-                                    secure: true }).send();
+                                    sameSite: isEnvProduction ? "none" : "lax", 
+                                    secure: isEnvProduction });
 
+       res.send({ success: true, message: "Token cookie set successfully" });
 
     } catch (err) {
         console.log({err})
@@ -125,13 +126,12 @@ router.post("/login", async (req, res) => {
        const isEnvProduction = process.env.NODE_ENV === "production" 
 
        res.cookie("token", token, { httpOnly: true, 
-                                    sameSite: "none", 
-                                    secure: true }
-                  )
-        
-        console.log("sending success")
-        
+                                    sameSite: isEnvProduction ? "none" : "lax" , 
+                                    secure: isEnvProduction }
+                  );
+                  
         res.send({ success: true, message: "Token cookie set successfully" });
+
 
     } catch (err) {
         console.log({err})
