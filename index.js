@@ -16,6 +16,7 @@ app.use(cParser());
 app.use(cors( {
     origin: ["http://localhost:3000", "https://snippet-ran.netlify.app"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
 })); // A middle ware that is going to run this for any request
 
 // sudo npm install -g --force nodemon

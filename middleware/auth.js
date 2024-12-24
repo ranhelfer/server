@@ -16,11 +16,9 @@ function auth(req, res, next) {
             })
         }
 
-        //console.log(process.env.JWT_SECRET);
-
         const validatedUser = jwt.verify(token, process.env.JWT_SECRET);
 
-         req.user = validatedUser.id;
+        req.user = validatedUser.id;
 
         next();
 
