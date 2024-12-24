@@ -68,8 +68,11 @@ router.post("/",async (req, res) => {
        console.log(token)
 
        // 
+       const isEnvProduction = process.env.NODE_ENV === "production" 
 
-       res.cookie("token", token, {httpOnly: true}).send();
+       res.cookie("token", token, { httpOnly: true, 
+                                    sameSite: isEnvProduction ? "none" : "lax", 
+                                    secure: isEnvProduction }).send();
 
 
     } catch (err) {
@@ -119,7 +122,12 @@ router.post("/login", async (req, res) => {
        console.log("Create token:")
        console.log(token)
  
-       res.cookie("token", token, {httpOnly: true}).send();
+       const isEnvProduction = process.env.NODE_ENV === "production" 
+
+       res.cookie("token", token, { httpOnly: true, 
+                                    sameSite: isEnvProduction ? "none" : "lax" , 
+                                    secure: isEnvProduction }
+                  ).send();
 
     } catch (err) {
         console.log({err})
