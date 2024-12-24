@@ -72,7 +72,9 @@ router.post("/",async (req, res) => {
 
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: isEnvProduction ? "none" : "lax", 
-                                    secure: isEnvProduction });
+                                    secure: isEnvProduction,
+                                    maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
+                                });
 
        res.send({ success: true, message: "Token cookie set successfully" });
 
@@ -127,7 +129,8 @@ router.post("/login", async (req, res) => {
 
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: isEnvProduction ? "none" : "lax" , 
-                                    secure: isEnvProduction }
+                                    secure: isEnvProduction,
+                                    maxAge: 24 * 60 * 60 * 1000 }
                   );
                   
         res.send({ success: true, message: "Token cookie set successfully" });
