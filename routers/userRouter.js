@@ -71,7 +71,7 @@ router.post("/",async (req, res) => {
        const isEnvProduction = process.env.NODE_ENV === "production" 
 
        res.cookie("token", token, { httpOnly: true, 
-                                    sameSite: isEnvProduction ? "none" : "lax", 
+                                    sameSite: isEnvProduction ? "None" : "lax", 
                                     secure: isEnvProduction }).send();
 
 
