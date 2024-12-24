@@ -13,8 +13,10 @@ app.use(express.json());
 
 app.use(cParser());
 
+const isEnvProduction = process.env.NODE_ENV === "production" 
+
 app.use(cors( {
-    origin: ["http://localhost:3000", "https://snippet-ran.netlify.app"],
+    origin: isEnvProduction ?  "https://snippet-ran.netlify.app" : "http://localhost:3000",
     credentials: true,
 })); // A middle ware that is going to run this for any request
 

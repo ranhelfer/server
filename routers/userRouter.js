@@ -72,7 +72,7 @@ router.post("/",async (req, res) => {
 
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: isEnvProduction ? "none" : "lax", 
-                                    secure: true }).send();
+                                    secure: isEnvProduction }).send();
 
 
     } catch (err) {
@@ -126,7 +126,7 @@ router.post("/login", async (req, res) => {
 
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: isEnvProduction ? "none" : "lax" , 
-                                    secure: true }
+                                    secure: isEnvProduction }
                   ).send();
 
     } catch (err) {
