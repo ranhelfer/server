@@ -127,7 +127,11 @@ router.post("/login", async (req, res) => {
        res.cookie("token", token, { httpOnly: true, 
                                     sameSite: "none", 
                                     secure: true }
-                  ).send();
+                  )
+        
+        console.log("sending success")
+        
+        res.send({ success: true, message: "Token cookie set successfully" });
 
     } catch (err) {
         console.log({err})
