@@ -169,6 +169,11 @@ router.get("/logout", (req, res) => {
     try {
         console.log("loging out")
 
+        const token = req.cookies.token;
+        if (!token) {
+            return res.json({ success: true, message: "No Token" });
+        }
+
         const isEnvProduction = process.env.NODE_ENV === "production" 
 
         res.cookie("token", token, { httpOnly: true, 
