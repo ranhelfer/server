@@ -176,7 +176,7 @@ router.get("/logout", (req, res) => {
             secure: isEnvProduction,
             expires: new Date(0) });
 
-        res.send({ success: true, message: "Token cookie set successfully" });
+        res.send({ success: true, message: "Token cookie removed successfully" });
      } catch (err) {
         console.log(err)
         return res.json(null);
