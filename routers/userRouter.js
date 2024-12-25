@@ -168,8 +168,15 @@ router.get("/loggedIn", (req, res) => {
 router.get("/logout", (req, res) => {
     try {
         console.log("loging out")
-        res.clearCookie("token").send();
-    } catch (err) {
+
+
+        res.cookie("token", token, { httpOnly: true, 
+            sameSite: isEnvProduction ? "none" : "lax" , 
+            secure: isEnvProduction,
+            expires: new Date(0) });
+            
+        res.send({ success: true, message: "Token cookie set successfully" });
+     } catch (err) {
         console.log(err)
         return res.json(null);
     }
