@@ -151,7 +151,7 @@ router.get("/loggedIn", (req, res) => {
     try {
 
         const token = req.cookies.token;
-
+        console.log("loggedIn:// i am getting token " + token);
         if (!token) {
             return res.json(null);
         }
