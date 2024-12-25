@@ -169,12 +169,13 @@ router.get("/logout", (req, res) => {
     try {
         console.log("loging out")
 
+        const isEnvProduction = process.env.NODE_ENV === "production" 
 
         res.cookie("token", token, { httpOnly: true, 
             sameSite: isEnvProduction ? "none" : "lax" , 
             secure: isEnvProduction,
             expires: new Date(0) });
-            
+
         res.send({ success: true, message: "Token cookie set successfully" });
      } catch (err) {
         console.log(err)
